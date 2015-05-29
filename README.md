@@ -91,7 +91,7 @@ Software Installation
 
 Download the Arduino IDE for free, and install it on your computer: http://arduino.cc/en/main/software
 
-After you have done that, download and unzip the iAqua Lite package (don't unzip the files in it though): iAqua_Lite.zip
+After you have done that, either download and unzip the this repo in the proper location, (usually documents/arduino/)
 
 Launch the Arduino program that you installed, and go to the menu: Sketch > Import Library > Add Library. Navigate to the package that you unzipped, and go into the "Additional Required Libraries" folder, and add each one of the libraries. When you are done with adding all of those, you need to move the iAquaLite folder from the downloaded package into your Arduino projects folder. You'll find it in your documents folder (My Documents on Windows, Documents on Mac).
 
