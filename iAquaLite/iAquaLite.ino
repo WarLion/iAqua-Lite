@@ -374,7 +374,7 @@ void setup()
   setSyncProvider(syncProvider);
 
   // for troubleshooting, output to serial if the RTC is running or not
-  if (! RTC.haltRTC()) 
+  if (RTC.haltRTC()) 
   {
     // If no RTC is installed, alert on serial
     Serial.println("RTC is stopped!\n");  // Store this string in PROGMEM
