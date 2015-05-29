@@ -1002,6 +1002,8 @@ void processButtonActions()
             if (saveRTC.tAM==false) {
               if (saveRTC.tHour!=12)
                 saveRTC.tHour=saveRTC.tHour+12;
+              } else if (saveRTC.tHour == 12) {
+              saveRTC.tHour = 0;
             }
           }
 
@@ -1034,6 +1036,7 @@ void processButtonActions()
           tm.Second = second();
           t = makeTime(tm);
 
+          if(RTC.set(t) == 0) setTime(t); // set RTC if successful
 
           setSyncProvider(syncProvider);
         }
