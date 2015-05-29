@@ -30,8 +30,10 @@
  Defines
  --------------------------------------------------------------------------------------*/
 // Pins in use
-#define BUTTON_ADC_PIN           A0  // A0 is the button ADC input
+#define BUTTON_ADC_PIN            A0  // A0 is the button ADC input
 #define LCD_BACKLIGHT_PIN         10  // D10 controls LCD backlight
+#define IR_TRANS_5V_PIN           44 // Power to IR transmitter
+#define IR_TRANS_GND_PIN          42 // GND for IR transmitter 
 // ADC readings expected for the 5 buttons on the ADC input
 #define RIGHT_10BIT_ADC           0  // right
 #define UP_10BIT_ADC            145  // up
@@ -339,6 +341,13 @@ void setup()
 
   digitalWrite(DS1302_VCC_PIN, HIGH);
   pinMode(DS1302_VCC_PIN, OUTPUT);
+
+  // Activate IR emmitter
+  digitalWrite(IR_TRANS_GND_PIN, LOW);
+  pinMode(IR_TRANS_GND_PIN, OUTPUT);
+
+  digitalWrite(IR_TRANS_5V_PIN, HIGH);
+  pinMode(IR_TRANS_5V_PIN, OUTPUT); 
 
   // this starts the backlight off for a second, allows for the startup fade in
   analogWrite(LCD_BACKLIGHT_PIN, 0);
@@ -990,7 +999,10 @@ void processButtonActions()
       if (menu.getCurrent().getName() == "SET TIME") {
         if ( editingActive == true ) {
           if (_24hr==false) {
-            if (saveRTC.tAM==false) saveRTC.tHour=saveRTC.tHour+12;
+            if (saveRTC.tAM==false) {
+              if (saveRTC.tHour!=12)
+                saveRTC.tHour=saveRTC.tHour+12;
+            }
           }
 
           time_t t;
@@ -1454,8 +1466,10 @@ void drawScreen()
     if (editingActive==false) {
       fadeT.onHour=fade1.onHour;
       fadeT.onMinute=fade1.onMinute;
-      fadeT.durationHours=fade1.durationHours;
-      fadeT.durationMinutes=fade1.durationMinutes;
+      //lightPowerT.durationHours=lightPower.offHour;   //AH bad code
+      //lightPowerT.durationMinutes=lightPower.offMinute;  //AH bad code
+      lightPowerT.offHour=lightPower.offHour;   //scaLLas corrected code
+      lightPowerT.offMinute=lightPower.offMinute;    //scaLLas corrected code
     }
 
     drawFadeSchedule(fadeT.onHour, fadeT.onMinute, fadeT.durationHours, fadeT.durationMinutes);
@@ -1616,8 +1630,8 @@ void drawScreen()
     if (editingActive==false) { 
       lightPowerT.onHour=lightPower.onHour;
       lightPowerT.onMinute=lightPower.onMinute;
-      lightPowerT.durationHours=lightPower.offHour;
-      lightPowerT.durationMinutes=lightPower.offMinute;
+      lightPowerT.offHour=lightPower.offHour;
+      lightPowerT.offMinute=lightPower.offMinute;
     }
 
     // if we are editing, we draw the cursor so the user knows we are editing
