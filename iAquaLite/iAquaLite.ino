@@ -1469,6 +1469,8 @@ void drawScreen()
     if (editingActive==false) {
       fadeT.onHour=fade1.onHour;
       fadeT.onMinute=fade1.onMinute;
+      fadeT.durationHours=fade1.offHour;   //AH bad code
+      fadeT.durationMinutes=fade1.offMinute;  //AH bad code
     }
 
     drawFadeSchedule(fadeT.onHour, fadeT.onMinute, fadeT.durationHours, fadeT.durationMinutes);
