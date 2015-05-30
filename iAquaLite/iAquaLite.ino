@@ -602,7 +602,7 @@ void loadPowerSchedule()
     EEPROM.write(103, lightPower.offHour);
   }
 
-  lightPower.offHour = EEPROM.read(104); //load the schedule from EEPROM
+  lightPower.offMinute = EEPROM.read(104); //load the schedule from EEPROM
   // if value is out of scope (first startup or not set), set it to 0
   if (lightPower.offMinute > 59) {
     lightPower.offMinute = 0;
@@ -1469,10 +1469,8 @@ void drawScreen()
     if (editingActive==false) {
       fadeT.onHour=fade1.onHour;
       fadeT.onMinute=fade1.onMinute;
-      //lightPowerT.durationHours=lightPower.offHour;   //AH bad code
-      //lightPowerT.durationMinutes=lightPower.offMinute;  //AH bad code
-      lightPowerT.offHour=lightPower.offHour;   //scaLLas corrected code
-      lightPowerT.offMinute=lightPower.offMinute;    //scaLLas corrected code
+      fadeT.durationHours=fade1.offHour;   //AH bad code
+      fadeT.durationMinutes=fade1.offMinute;  //AH bad code
     }
 
     drawFadeSchedule(fadeT.onHour, fadeT.onMinute, fadeT.durationHours, fadeT.durationMinutes);
