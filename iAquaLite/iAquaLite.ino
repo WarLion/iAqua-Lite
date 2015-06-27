@@ -1220,7 +1220,7 @@ void menuChangeEvent(MenuChangeEvent changed)
 
   // tracks if we drop into a sub menu, this lets us back out with the left button
   if ((changed.from == miFSCHED)&&(changed.to == miF1)) subMenu=true; 
-  else if ((changed.from == miWRGB)&&(changed.to == miDAYLIGHT)) subMenu=true;
+  else if ((changed.from == miWRGB)&&(changed.to == miMOON)) subMenu=true;
   else if ((changed.from == miTIDA)&&(changed.to == miTIME)) subMenu=true;
 
 }
