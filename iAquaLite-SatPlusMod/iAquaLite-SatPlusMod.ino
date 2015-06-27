@@ -441,7 +441,7 @@ void setup()
   setSyncProvider(syncProvider);
 
   // for troubleshooting, output to serial if the RTC is running or not
-  if (! RTC.haltRTC()) 
+  if (RTC.haltRTC()) 
   {
     // If no RTC is installed, alert on serial
     Serial.println("RTC is stopped!\n");  // Store this string in PROGMEM
@@ -1073,6 +1073,8 @@ void processButtonActions()
             if (saveRTC.tAM==false) {
               if (saveRTC.tHour!=12)
                 saveRTC.tHour=saveRTC.tHour+12;
+		} else if (saveRTC.tHour == 12) {
+		saveRTC.tHour = 0;
             } 
           }
 
@@ -1543,12 +1545,8 @@ void drawScreen()
     if (editingActive==false) {
       fadeT.onHour=fade1.onHour;
       fadeT.onMinute=fade1.onMinute;
-      //BEGIN KMAN CHANGES: - code change per scaLLas
-      //lightPowerT.durationHours=lightPower.offHour;   //AH bad code
-      //lightPowerT.durationMinutes=lightPower.offMinute;  //AH bad code
-      lightPowerT.offHour=lightPower.offHour;   //scaLLas corrected code
-      lightPowerT.offMinute=lightPower.offMinute;    //scaLLas corrected code
-      //END KMAN CHANGES
+      fadeT.durationHours=fade1.durationHours;
+      fadeT.durationMinutes=fade1.durationMinutes;
     }
 
     drawFadeSchedule(fadeT.onHour, fadeT.onMinute, fadeT.durationHours, fadeT.durationMinutes);
@@ -1712,10 +1710,8 @@ void drawScreen()
     if (editingActive==false) { 
       lightPowerT.onHour=lightPower.onHour;
       lightPowerT.onMinute=lightPower.onMinute;
-//      lightPowerT.offHour=lightPower.offHour;      //AH Bad Code
-//      lightPowerT.offMinute=lightPower.offMinute;  //AH Bad Code
-      lightPowerT.durationHours=lightPower.offHour;     //scaLLas corrected code
-      lightPowerT.durationMinutes=lightPower.offMinute; //scaLLas corrected code
+      lightPowerT.offHour=lightPower.offHour;
+      lightPowerT.offMinute=lightPower.offMinute;
     }
 
     // if we are editing, we draw the cursor so the user knows we are editing
