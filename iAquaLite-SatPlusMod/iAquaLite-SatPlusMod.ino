@@ -210,7 +210,7 @@ struct RTC_T  // used for time
   int tMonth;
   int tYear;
 } 
-prevRTC, saveRTC;
+saveRTC;
 
 struct WRGB  // for storing light intensity values
 {
@@ -858,10 +858,6 @@ void loadFade3()
   fade3alarmID = Alarm.alarmRepeat(fade3.onHour,fade3.onMinute,0,AlarmFade3);
 
 
-}
-
-void doNothing()
-{
 }
 
 void loadFade4()
